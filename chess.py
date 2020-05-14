@@ -27,17 +27,17 @@ wq = f'{white}{chessman["queen"]}'
 bq = f'{black}{chessman["queen"]}'
 wK = f'{white}{chessman["king"]}'
 bK = f'{black}{chessman["king"]}'
-nn = None
+ff = False
 NUM = 8
 
 dic = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
 chessboard = np.array([
     [br, bk, bb, bq, bK, bb, bk, br],
     [bp, bp, bp, bp, bp, bp, bp, bp],
-    [nn, nn, nn, nn, nn, nn, nn, nn],
-    [nn, nn, nn, nn, nn, nn, nn, nn],
-    [nn, nn, nn, nn, nn, nn, nn, nn],
-    [nn, nn, nn, nn, nn, nn, nn, nn],
+    [ff, ff, ff, ff, ff, ff, ff, ff],
+    [ff, ff, ff, ff, ff, ff, ff, ff],
+    [ff, ff, ff, ff, ff, ff, ff, ff],
+    [ff, ff, ff, ff, ff, ff, ff, ff],
     [wp, wp, wp, wp, wp, wp, wp, wp],
     [wr, wk, wb, wq, wK, wb, wk, wr]
 ], dtype=object)
@@ -49,7 +49,7 @@ def main():
         fields += f'{x}'
         for y in range(NUM):
             color = 124 if (x + y) % 2 else 172
-            figure = nn
+            figure = ff
             figure = chessboard[x * -1][y]
             fields += f'{bg}{color}m{figure if figure else " "} '
         fields += f'{reset}\n'
@@ -62,7 +62,7 @@ def main():
     player.reverse()
     index = [int(j) * -1 if i % 2 != 0 else dic[j] for i, j in enumerate(move)]
     chessboard[index[3], index[2]] = chessboard[index[1], index[0]]
-    chessboard[index[1], index[0]] = nn
+    chessboard[index[1], index[0]] = ff
     main()
 
 
