@@ -13,6 +13,7 @@ white = '\x1b[97m'
 reset = '\x1b[0m'
 continues = '\x1b[12F\x1b[J'
 print()
+player = ['WHITE', 'BLACK']
 
 wp = f'{white}{chessman["pawn"]}'
 bp = f'{black}{chessman["pawn"]}'
@@ -53,14 +54,15 @@ def main():
             fields += f'{bg}{color}m{figure if figure else " "} '
         fields += f'{reset}\n'
     print(fields)
-    move = input('Введите ход, например e2e4 -> ')
+    move = input(f'[{player[0]}]Введите ход, например e2e4 -> ')
+    print(continues)
     if move == 'q':
         print(f'{reset}[Exit]')
         return
+    player.reverse()
     index = [int(j) * -1 if i % 2 != 0 else dic[j] for i, j in enumerate(move)]
     chessboard[index[3], index[2]] = chessboard[index[1], index[0]]
     chessboard[index[1], index[0]] = nn
-    print(continues)
     main()
 
 
