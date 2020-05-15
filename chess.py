@@ -60,15 +60,14 @@ def main():
     if move == 'q':
         print(f'{reset}[Exit]')
         return
-    player.reverse()
     try:
         index = [int(j) * -1 if i % 2 != 0 else dic[j] for i, j in enumerate(move)]
         chessboard[index[3], index[2]] = chessboard[index[1], index[0]]
         chessboard[index[1], index[0]] = ff
+        player.reverse()
     except BaseException:
         input('wrong move, press enter')
         print('\x1b[2F\x1b[J')
-        player.reverse()
     main()
 
 
