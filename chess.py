@@ -57,18 +57,18 @@ def main():
         fields += f'{reset}\n'
     print(fields)
     move = input(f'[q-Exit] {player[0]} move, for example e2e4 -> ')
-    try:
-        index = [int(j) * -1 if i % 2 != 0 else dic[j] for i, j in enumerate(move)]
-        chessboard[index[3], index[2]] = chessboard[index[1], index[0]]
-        chessboard[index[1], index[0]] = ff
-        player.reverse()
-    except BaseException:
-        if move != 'q':
+    if move != 'q':
+        try:
+            index = [int(j) * -1 if i % 2 != 0 else dic[j] for i, j in enumerate(move)]
+            chessboard[index[3], index[2]] = chessboard[index[1], index[0]]
+            chessboard[index[1], index[0]] = ff
+            player.reverse()
+        except BaseException:
             input(f'\x1b[F\x1b[K{red}wrong move, press enter{reset}')
-    print(continues)
-    if move == 'q':
-        print(f'{reset}[Exit]')
+    else:
+        print(f'\n{continues}{reset}[EXIT]')
         return
+    print(continues)
     main()
 
 
