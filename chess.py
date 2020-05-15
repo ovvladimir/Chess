@@ -1,3 +1,4 @@
+# Шрифт в cmd - MS Gothic
 import numpy as np
 import os
 
