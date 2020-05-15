@@ -11,6 +11,7 @@ chessman = {
 bg = '\x1b[48;5;'
 black = '\x1b[30m'
 white = '\x1b[97m'
+red = '\x1b[91m'
 reset = '\x1b[0m'
 continues = '\x1b[12F\x1b[J'
 player = ["White's", "Black's"]
@@ -56,18 +57,18 @@ def main():
         fields += f'{reset}\n'
     print(fields)
     move = input(f'[q-Exit] {player[0]} move, for example e2e4 -> ')
-    print(continues)
-    if move == 'q':
-        print(f'{reset}[Exit]')
-        return
     try:
         index = [int(j) * -1 if i % 2 != 0 else dic[j] for i, j in enumerate(move)]
         chessboard[index[3], index[2]] = chessboard[index[1], index[0]]
         chessboard[index[1], index[0]] = ff
         player.reverse()
     except BaseException:
-        input('wrong move, press enter')
-        print('\x1b[2F\x1b[J')
+        if move != 'q':
+            input(f'\x1b[F\x1b[K{red}wrong move, press enter{reset}')
+    print(continues)
+    if move == 'q':
+        print(f'{reset}[Exit]')
+        return
     main()
 
 
