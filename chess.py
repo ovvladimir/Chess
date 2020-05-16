@@ -14,6 +14,7 @@ color_cell_2 = '\x1b[48;5;172m'
 black = '\x1b[30m'
 white = '\x1b[97m'
 red = '\x1b[91m'
+clear = '\x1b[F\x1b[K'
 reset = '\x1b[0m'
 continues = '\x1b[13F\x1b[J'
 player = ["White's", "Black's"]
@@ -67,7 +68,7 @@ def main():
             chessfield[index[1], index[0]] = ff
             player.reverse()
         except BaseException:
-            input(f'\x1b[F\x1b[K{red}wrong move, press enter{reset}')
+            input(f'{clear}{red}wrong move, press enter{reset}')
     else:
         print(f'\n{continues}{reset}[EXIT]')
         return
