@@ -31,21 +31,21 @@ wq = f'{white}{chessman["queen"]}'
 bq = f'{black}{chessman["queen"]}'
 wK = f'{white}{chessman["king"]}'
 bK = f'{black}{chessman["king"]}'
-ff = False
+sp = ' '
 
 dic = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
 chessfield = np.array([
     [br, bk, bb, bq, bK, bb, bk, br],
     [bp, bp, bp, bp, bp, bp, bp, bp],
-    [ff, ff, ff, ff, ff, ff, ff, ff],
-    [ff, ff, ff, ff, ff, ff, ff, ff],
-    [ff, ff, ff, ff, ff, ff, ff, ff],
-    [ff, ff, ff, ff, ff, ff, ff, ff],
+    [sp, sp, sp, sp, sp, sp, sp, sp],
+    [sp, sp, sp, sp, sp, sp, sp, sp],
+    [sp, sp, sp, sp, sp, sp, sp, sp],
+    [sp, sp, sp, sp, sp, sp, sp, sp],
     [wp, wp, wp, wp, wp, wp, wp, wp],
     [wr, wk, wb, wq, wK, wb, wk, wr]
-], dtype=object)
+], dtype=str)
 
-chessboard = np.tile(np.array([[c2, c1], [c1, c2]], dtype=object), (4, 4))
+chessboard = np.tile(np.array([[c2, c1], [c1, c2]], dtype=str), (4, 4))
 chessboard.flags.writeable = False
 
 
@@ -53,8 +53,8 @@ def main():
     fields = f'{letters}8'
     for index, value in np.ndenumerate(chessboard):
         figure = chessfield[index]
-        fields += f'{value}{figure if figure else " "} {reset}{8 - index[0]}\n{7 - index[0]}' \
-            if index[1] == 7 else f'{value}{figure if figure else " "} '
+        fields += f'{value}{figure}{sp}{reset}{8 - index[0]}\n{7 - index[0]}' \
+            if index[1] == 7 else f'{value}{figure}{sp}'
     print(fields, f'\r{letters}')
 
     move = input(f'[q-Exit] {player[0]} move, for example e2e4 -> ')
@@ -62,7 +62,7 @@ def main():
         try:
             index = [int(j) * -1 if i % 2 != 0 else dic[j] for i, j in enumerate(move)]
             chessfield[index[3], index[2]] = chessfield[index[1], index[0]]
-            chessfield[index[1], index[0]] = ff
+            chessfield[index[1], index[0]] = sp
             player.reverse()
         except (IndexError, BaseException):
             input(f'{clear}{red}wrong move, press enter{reset}')
