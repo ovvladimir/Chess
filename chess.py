@@ -9,8 +9,7 @@ chessman = {
     "queen": "\u265B", "king": "\u265A"}
 
 letters = ' \u0041 \u0042 \u0043 \u0044 \u0045 \u0046 \u0047 \u0048 \n'
-color_cell_1 = '\x1b[48;5;124m'
-color_cell_2 = '\x1b[48;5;172m'
+c1, c2 = '\x1b[48;5;124m', '\x1b[48;5;172m'
 black = '\x1b[30m'
 white = '\x1b[97m'
 red = '\x1b[91m'
@@ -19,11 +18,6 @@ reset = '\x1b[0m'
 continues = '\x1b[13F\x1b[J'
 player = ["White's", "Black's"]
 print()
-
-chessboard = np.tile(np.array([[0, 1], [1, 0]], dtype=object), (4, 4))
-chessboard[np.nonzero(chessboard)] = color_cell_1
-chessboard[chessboard == 0] = color_cell_2
-chessboard.flags.writeable = False
 
 wp = f'{white}{chessman["pawn"]}'
 bp = f'{black}{chessman["pawn"]}'
@@ -51,6 +45,9 @@ chessfield = np.array([
     [wr, wk, wb, wq, wK, wb, wk, wr]
 ], dtype=object)
 
+chessboard = np.tile(np.array([[c2, c1], [c1, c2]], dtype=object), (4, 4))
+chessboard.flags.writeable = False
+
 
 def main():
     fields = f'{letters}8'
@@ -67,7 +64,7 @@ def main():
             chessfield[index[3], index[2]] = chessfield[index[1], index[0]]
             chessfield[index[1], index[0]] = ff
             player.reverse()
-        except BaseException:
+        except (IndexError, BaseException):
             input(f'{clear}{red}wrong move, press enter{reset}')
     else:
         print(f'\n{continues}{reset}[EXIT]')
