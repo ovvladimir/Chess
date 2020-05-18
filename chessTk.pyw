@@ -4,14 +4,14 @@ import numpy as np
 root = Tk()
 root.geometry('+10+10')
 root.title('Chess')
-root.iconphoto(True, PhotoImage(file='ico.png'))
+# root.iconphoto(True, PhotoImage(file='ico.png'))
 
 sp = ' ' * 4
 num = '8 \n\n7 \n\n6 \n\n5 \n\n4 \n\n3 \n\n2 \n\n1 '
 letters = f'  \u0061{sp}\u0062{sp}\u0063{sp}\u0064{sp}\u0065{sp}\u0066{sp}\u0067{sp}\u0068'
 
 lf = LabelFrame(root, text=num, font='century 16 bold', fg='red', labelanchor='w', bd=0)
-lf.grid(row=0, column=0, sticky=W + E, padx=4, pady=4)
+lf.grid(row=0, column=0, sticky=W + E, padx=4)
 lf2 = LabelFrame(root, text=letters, font='century 20 bold', fg='red', labelanchor='n', bd=0)
 lf2.grid(row=1, column=0, sticky=W + E)
 text = Text(lf2, font='arial 14', width=0, height=0)
