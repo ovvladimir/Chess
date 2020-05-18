@@ -4,18 +4,18 @@ import numpy as np
 root = Tk()
 root.geometry('+10+10')
 root.title('Chess')
-# root.iconphoto(True, PhotoImage(file='ico.png'))
+root.iconphoto(True, PhotoImage(file='ico.png'))
 
 sp = ' ' * 4
-num = '8\n\n7\n\n6\n\n5\n\n4\n\n3\n\n2\n\n1'
-letters = f'  \u0041{sp}\u0042{sp}\u0043{sp}\u0044{sp}\u0045{sp}\u0046{sp}\u0047{sp}\u0048'
+num = '8 \n\n7 \n\n6 \n\n5 \n\n4 \n\n3 \n\n2 \n\n1 '
+letters = f'  \u0061{sp}\u0062{sp}\u0063{sp}\u0064{sp}\u0065{sp}\u0066{sp}\u0067{sp}\u0068'
 
 lf = LabelFrame(root, text=num, font='century 16 bold', fg='red', labelanchor='w', bd=0)
-lf.pack()
-lf2 = LabelFrame(root, text=letters, font='century 18 bold', fg='red', labelanchor='n', bd=0)
-lf2.pack()
-text = Text(lf2, font='arial 14', width=38, height=1)
-text.pack()
+lf.grid(row=0, column=0, sticky=W + E, padx=4, pady=4)
+lf2 = LabelFrame(root, text=letters, font='century 20 bold', fg='red', labelanchor='n', bd=0)
+lf2.grid(row=1, column=0, sticky=W + E)
+text = Text(lf2, font='arial 14', width=0, height=0)
+text.pack(fill='both')
 text.tag_configure('tag-center', justify='center')
 entry = Entry(lf2, font='arial 16 bold', justify='center')
 entry.pack(fill='both')
@@ -63,7 +63,7 @@ def main(*args):
             player.reverse()
             message(f'{player[0]} move, for example e2e4', 'green')
         except (IndexError, BaseException):
-            message(f'wrong move, {player[0]} move, for example e2e4', 'red')
+            message(f'Wrong move. {player[0]} move, for example e2e4', 'red')
 
     for index, value in np.ndenumerate(chessman):
         color = (index[0] + index[1]) & 1  # % 2
