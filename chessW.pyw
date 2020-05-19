@@ -17,14 +17,14 @@ s, sp = ' ' * 3, ' ' * 4
 
 chessman = np.array([
     [s, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', s],
-    [8, br, bk, bb, bq, bK, bb, bk, br, 8],
-    [7, bp, bp, bp, bp, bp, bp, bp, bp, 7],
-    [6, sp, sp, sp, sp, sp, sp, sp, sp, 6],
-    [5, sp, sp, sp, sp, sp, sp, sp, sp, 5],
-    [4, sp, sp, sp, sp, sp, sp, sp, sp, 4],
-    [3, sp, sp, sp, sp, sp, sp, sp, sp, 3],
-    [2, wp, wp, wp, wp, wp, wp, wp, wp, 2],
-    [1, wr, wk, wb, wq, wK, wb, wk, wr, 1],
+    [' 8 ', br, bk, bb, bq, bK, bb, bk, br, ' 8 '],
+    [' 7 ', bp, bp, bp, bp, bp, bp, bp, bp, ' 7 '],
+    [' 6 ', sp, sp, sp, sp, sp, sp, sp, sp, ' 6 '],
+    [' 5 ', sp, sp, sp, sp, sp, sp, sp, sp, ' 5 '],
+    [' 4 ', sp, sp, sp, sp, sp, sp, sp, sp, ' 4 '],
+    [' 3 ', sp, sp, sp, sp, sp, sp, sp, sp, ' 3 '],
+    [' 2 ', wp, wp, wp, wp, wp, wp, wp, wp, ' 2 '],
+    [' 1 ', wr, wk, wb, wq, wK, wb, wk, wr, ' 1 '],
     [s, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', s]
 ], dtype=str)
 
@@ -57,6 +57,7 @@ def play(e=None):
 root = Tk()
 root.geometry('+10+10')
 root.title('Chess')
+# root.iconbitmap('ico.ico')
 # root.iconphoto(False, PhotoImage(file='ico.png'))
 
 fr = Frame(root, relief=RAISED, bd=20, bg='gray')
@@ -69,7 +70,7 @@ entry.pack(fill='both')
 
 lbl_list = []
 for index, value in np.ndenumerate(chessman):
-    color = 2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) % 2
+    color = 2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) & 1
     lbl = Label(fr, text=value, background=COLORS[color],
                 font='century 20' if color == 2 else 'arial 30', relief=RAISED)
     lbl.grid(row=index[0], column=index[1], sticky=N + S + W + E)
