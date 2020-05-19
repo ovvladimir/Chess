@@ -1,6 +1,10 @@
 from tkinter import Tk, Frame, Text, Entry, W, E, S, N, \
     Button, Label, PhotoImage, RAISED
 import numpy as np
+import os
+
+# icon = "ico.ico"
+# path = os.path.join(os.path.dirname(__file__), icon)
 
 COLORS = ('gold', 'coral3', 'gray90')
 player = ["White's", "Black's"]
@@ -55,19 +59,7 @@ def play(e=None):
 
 
 root = Tk()
-root.geometry('+10+10')
-root.title('Chess')
-# root.iconbitmap('ico.ico')
-# root.iconphoto(False, PhotoImage(file='ico.png'))
-
 fr = Frame(root, relief=RAISED, bd=20, bg='gray')
-fr.pack(padx=4)
-text = Text(root, font='arial 14', width=0, height=0)
-text.pack(fill='both')
-text.tag_configure('tag-center', justify='center')
-entry = Entry(root, font='arial 16 bold', justify='center')
-entry.pack(fill='both')
-
 lbl_list = []
 for index, value in np.ndenumerate(chessman):
     color = 2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) & 1
@@ -75,10 +67,21 @@ for index, value in np.ndenumerate(chessman):
                 font='century 20' if color == 2 else 'arial 30', relief=RAISED)
     lbl.grid(row=index[0], column=index[1], sticky=N + S + W + E)
     lbl_list.append(lbl)
+fr.pack(padx=4)
 
+text = Text(root, font='arial 14', width=0, height=0)
+text.pack(fill='both')
+text.tag_configure('tag-center', justify='center')
+entry = Entry(root, font='arial 16 bold', justify='center')
+entry.pack(fill='both')
 bt = Button(root, text='E N T E R', font='century 14 bold', fg='red', bd=4, command=play)
 bt.pack(fill='both')
+
 root.bind("<Return>", play)
+root.geometry('+10+10')
+root.title('Chess')
+# root.iconbitmap(path)
+# root.iconphoto(False, PhotoImage(file=path))
 
 entry.focus()
 message(f'{player[0]} move, for example e2e4', 'green')
