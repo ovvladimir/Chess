@@ -1,4 +1,5 @@
-from tkinter import Tk, LabelFrame, Text, Entry, W, E, S, N, Button, Label, PhotoImage
+from tkinter import Tk, LabelFrame, Text, Entry, W, E, S, N, \
+    Button, Label, PhotoImage, RAISED
 import numpy as np
 
 root = Tk()
@@ -6,7 +7,7 @@ root.geometry('+10+10')
 root.title('Chess')
 # root.iconphoto(True, PhotoImage(file='ico.png'))
 
-lf = LabelFrame(root)
+lf = LabelFrame(root, relief=RAISED, bd=20, bg='gray')
 lf.grid(row=0, column=0, sticky=W + E, padx=4)
 lf2 = LabelFrame(root, bd=0)
 lf2.grid(row=1, column=0, sticky=W + E)
@@ -28,10 +29,10 @@ wk, bk = "\u2658", "\u265E"
 wb, bb = "\u2657", "\u265D"
 wq, bq = "\u2655", "\u265B"
 wK, bK = "\u2654", "\u265A"
-sp = ' ' * 4
+s, sp = ' ' * 3, ' ' * 4
 
 chessman = np.array([
-    [sp, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', sp],
+    [s, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', s],
     [8, br, bk, bb, bq, bK, bb, bk, br, 8],
     [7, bp, bp, bp, bp, bp, bp, bp, bp, 7],
     [6, sp, sp, sp, sp, sp, sp, sp, sp, 6],
@@ -40,7 +41,7 @@ chessman = np.array([
     [3, sp, sp, sp, sp, sp, sp, sp, sp, 3],
     [2, wp, wp, wp, wp, wp, wp, wp, wp, 2],
     [1, wr, wk, wb, wq, wK, wb, wk, wr, 1],
-    [sp, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', sp]
+    [s, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', s]
 ], dtype=str)
 
 
@@ -68,13 +69,10 @@ def main(e=None):
             message(f'Wrong move. {player[0]} move, for example e2e4', 'red')
 
     for index, value in np.ndenumerate(chessman):
-        color = 2 if value not in chessman[1:-1, 1:-1] or (
-            index == (0, 0) or index == (0, 9) or index == (9, 0)
-            or index == (9, 9)) else (index[0] + index[1]) % 2
-        lb = Label(
-            lf, text=value, background=COLORS[color],
-            font='century 20' if color == 2 else 'arial 30')
-        lb.grid(row=index[0], column=index[1], sticky=N + S + W + E)
+        color = 2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) % 2
+        lbl = Label(lf, text=value, background=COLORS[color],
+                    font='century 20' if color == 2 else 'arial 30', relief=RAISED)
+        lbl.grid(row=index[0], column=index[1], sticky=N + S + W + E)
     block[0] = True
 
 
