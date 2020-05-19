@@ -1,4 +1,4 @@
-from tkinter import Tk, LabelFrame, Text, Entry, W, E, S, N, \
+from tkinter import Tk, Frame, Text, Entry, W, E, S, N, \
     Button, Label, PhotoImage, RAISED
 import numpy as np
 
@@ -7,14 +7,12 @@ root.geometry('+10+10')
 root.title('Chess')
 # root.iconphoto(True, PhotoImage(file='ico.png'))
 
-lf = LabelFrame(root, relief=RAISED, bd=20, bg='gray')
-lf.grid(row=0, column=0, sticky=W + E, padx=4)
-lf2 = LabelFrame(root, bd=0)
-lf2.grid(row=1, column=0, sticky=W + E)
-text = Text(lf2, font='arial 14', width=0, height=0)
+fr = Frame(root, relief=RAISED, bd=20, bg='gray')
+fr.pack(padx=4)
+text = Text(root, font='arial 14', width=0, height=0)
 text.pack(fill='both')
 text.tag_configure('tag-center', justify='center')
-entry = Entry(lf2, font='arial 16 bold', justify='center')
+entry = Entry(root, font='arial 16 bold', justify='center')
 entry.pack(fill='both')
 block = [False]
 
@@ -70,13 +68,13 @@ def main(e=None):
 
     for index, value in np.ndenumerate(chessman):
         color = 2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) % 2
-        lbl = Label(lf, text=value, background=COLORS[color],
+        lbl = Label(fr, text=value, background=COLORS[color],
                     font='century 20' if color == 2 else 'arial 30', relief=RAISED)
         lbl.grid(row=index[0], column=index[1], sticky=N + S + W + E)
     block[0] = True
 
 
-bt = Button(lf2, text='E N T E R', font='century 14 bold', fg='red', bd=4, command=main)
+bt = Button(root, text='E N T E R', font='century 14 bold', fg='red', bd=4, command=main)
 bt.pack(fill='both')
 root.bind("<Return>", main)
 
