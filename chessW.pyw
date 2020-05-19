@@ -2,20 +2,6 @@ from tkinter import Tk, Frame, Text, Entry, W, E, S, N, \
     Button, Label, PhotoImage, RAISED
 import numpy as np
 
-root = Tk()
-root.geometry('+10+10')
-root.title('Chess')
-# root.iconphoto(True, PhotoImage(file='ico.png'))
-
-fr = Frame(root, relief=RAISED, bd=20, bg='gray')
-fr.pack(padx=4)
-text = Text(root, font='arial 14', width=0, height=0)
-text.pack(fill='both')
-text.tag_configure('tag-center', justify='center')
-entry = Entry(root, font='arial 16 bold', justify='center')
-entry.pack(fill='both')
-block = [False]
-
 COLORS = ('gold', 'coral3', 'gray90')
 player = ["White's", "Black's"]
 dl = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
@@ -49,34 +35,51 @@ def message(txt, clr):
     text.configure(fg=clr)
 
 
-def main(e=None):
+def play(e=None):
     move = entry.get()
     entry.delete(0, 'end')
     entry.focus()
-    message(f'{player[0]} move, for example e2e4', 'green')
-    if block[0]:
-        try:
-            if dl[move[0]] == dl[move[2]] and dn[move[1]] == dn[move[3]]:
-                move = ''
-            chessman[1:-1, 1:-1][dn[move[3]], dl[move[2]]] = \
-                chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]]
-            chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]] = sp
-            player.reverse()
-            message(f'{player[0]} move, for example e2e4', 'green')
-        except (IndexError, BaseException):
-            message(f'Wrong move. {player[0]} move, for example e2e4', 'red')
+    try:
+        if dl[move[0]] == dl[move[2]] and dn[move[1]] == dn[move[3]]:
+            move = ''
+        chessman[1:-1, 1:-1][dn[move[3]], dl[move[2]]] = \
+            chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]]
+        chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]] = sp
+        player.reverse()
+        message(f'{player[0]} move, for example e2e4', 'green')
+    except (IndexError, BaseException):
+        message(f'Wrong move. {player[0]} move, for example e2e4', 'red')
 
-    for index, value in np.ndenumerate(chessman):
-        color = 2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) % 2
-        lbl = Label(fr, text=value, background=COLORS[color],
-                    font='century 20' if color == 2 else 'arial 30', relief=RAISED)
-        lbl.grid(row=index[0], column=index[1], sticky=N + S + W + E)
-    block[0] = True
+    for ind in np.ndindex(chessman.shape):
+        lbl_list[int(f'{ind[0]}{ind[1]}')]['text'] = chessman[ind]
 
 
-bt = Button(root, text='E N T E R', font='century 14 bold', fg='red', bd=4, command=main)
+root = Tk()
+root.geometry('+10+10')
+root.title('Chess')
+# root.iconphoto(False, PhotoImage(file='ico.png'))
+
+fr = Frame(root, relief=RAISED, bd=20, bg='gray')
+fr.pack(padx=4)
+text = Text(root, font='arial 14', width=0, height=0)
+text.pack(fill='both')
+text.tag_configure('tag-center', justify='center')
+entry = Entry(root, font='arial 16 bold', justify='center')
+entry.pack(fill='both')
+
+lbl_list = []
+for index, value in np.ndenumerate(chessman):
+    color = 2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) % 2
+    lbl = Label(fr, text=value, background=COLORS[color],
+                font='century 20' if color == 2 else 'arial 30', relief=RAISED)
+    lbl.grid(row=index[0], column=index[1], sticky=N + S + W + E)
+    lbl_list.append(lbl)
+
+bt = Button(root, text='E N T E R', font='century 14 bold', fg='red', bd=4, command=play)
 bt.pack(fill='both')
-root.bind("<Return>", main)
+root.bind("<Return>", play)
 
-main()
+entry.focus()
+message(f'{player[0]} move, for example e2e4', 'green')
+
 root.mainloop()
