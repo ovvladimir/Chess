@@ -49,7 +49,8 @@ def play(move):
         message(f'Wrong move. {player[0]} move, for example e2e4', 'red')
 
     for index, value in np.ndenumerate(chessman):
-        window[index].update(value)
+        window[index].update(
+            value, text_color='white' if value and 9811 < ord(value) < 9818 else 'black')
 
 
 layout = [[sg.Frame(
