@@ -1,10 +1,10 @@
 from tkinter import Tk, Frame, Text, Entry, W, E, S, N, \
-    Button, Label, PhotoImage, RAISED
+    Button, Label, RAISED
 import numpy as np
 import os
 
-# icon = "ico.ico"
-# path = os.path.join(os.path.dirname(__file__), icon)
+icon = "ico.ico"
+path = os.path.join(os.path.dirname(__file__), icon)
 
 COLORS = ('gold', 'coral3', 'gray90')
 player = ["White's", "Black's"]
@@ -44,8 +44,8 @@ def play(e=None):
     entry.delete(0, 'end')
     entry.focus()
     try:
-        if dl[move[0]] == dl[move[2]] and dn[move[1]] == dn[move[3]]:
-            move = ''
+        if (dl[move[0]] == dl[move[2]] and dn[move[1]] == dn[move[3]]) or len(move) != 4:
+            move = sp
         chessman[1:-1, 1:-1][dn[move[3]], dl[move[2]]] = \
             chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]]
         chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]] = sp
@@ -74,16 +74,15 @@ text.pack(fill='both')
 text.tag_configure('tag-center', justify='center')
 entry = Entry(root, font='arial 16 bold', justify='center')
 entry.pack(fill='both')
+entry.focus()
 bt = Button(root, text='E N T E R', font='century 14 bold', fg='red', bd=4, command=play)
 bt.pack(fill='both')
 
 root.bind("<Return>", play)
 root.geometry('+10+10')
 root.title('Chess')
-# root.iconbitmap(path)
-# root.iconphoto(False, PhotoImage(file=path))
+root.iconbitmap(path)
 
-entry.focus()
 message(f'{player[0]} move, for example e2e4', 'green')
 
 root.mainloop()
