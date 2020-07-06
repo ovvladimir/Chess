@@ -5,7 +5,7 @@ import os
 icon = "ico.ico"
 path = os.path.join(os.path.dirname(__file__), icon)
 
-COLORS = ('gold', 'coral3', 'gray90')
+COLORS = ('gold', 'coral3', 'gray80')
 player = ["White's", "Black's"]
 dl = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
 dn = {'1': 7, '2': 6, '3': 5, '4': 4, '5': 3, '6': 2, '7': 1, '8': 0}
@@ -50,20 +50,20 @@ def play(move):
 
     for index, value in np.ndenumerate(chessman):
         window[index].update(
-            value, text_color='white' if value and 9811 < ord(value) < 9818 else 'black')
+            value, text_color='white' if value and ord(value) < 9818 else 'black')
 
 
 layout = [[sg.Frame(
     title='', border_width=20, relief='raised', background_color='gray',
     layout=[[sg.Text(
         text=value, size=(2, 1), justification='center', relief='raised',
-        border_width=2, pad=(1, 1), key=index, font='arial 30',
+        border_width=2, pad=(1, 1), key=index, font='arial 30 bold',
         background_color=COLORS[2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) & 1],
-        text_color='white' if value and 9811 < ord(value) < 9818 else 'black')
+        text_color='white' if value and ord(value) < 9818 else 'black')
         for index, value in np.ndenumerate(chessman)][i:i + 10] for i in range(0, 100, 10)])],
-    [sg.Text(text=f'{player[0]} move, for example e2e4', size=(44, 1), key='-OUTPUT-',
+    [sg.Text(text=f'{player[0]} move, for example e2e4', size=(46, 1), key='-OUTPUT-',
      text_color='green', font='arial 16 bold', background_color='white')],
-    [sg.Input(focus=True, size=(44, 1), font='arial 18 bold', justification='center', key='-INPUT-')],
+    [sg.Input(focus=True, size=(46, 1), font='arial 18 bold', justification='center', key='-INPUT-')],
     [sg.Button('Enter', key='button'), sg.Exit()]]
 
 window = sg.Window('Chess', layout, icon=path, finalize=True)  # no_titlebar=True
