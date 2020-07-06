@@ -1,7 +1,7 @@
 import PySimpleGUIWeb as sg
 import numpy as np
 
-COLORS = ('gold', 'coral3', 'gray90')
+COLORS = ('gold', 'brown', 'gray90')
 player = ["White's", "Black's"]
 dl = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7}
 dn = {'1': 7, '2': 6, '3': 5, '4': 4, '5': 3, '6': 2, '7': 1, '8': 0}
@@ -45,7 +45,8 @@ def play(move):
         message(f'Wrong move. {player[0]} move, for example e2e4', 'red')
 
     for index, value in np.ndenumerate(chessman):
-        window[index].update(value)
+        window[index].update(
+            value, text_color='white' if value and 9811 < ord(value) < 9818 else 'black')
 
 
 layout = [[sg.Frame(
