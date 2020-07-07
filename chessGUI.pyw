@@ -67,14 +67,14 @@ layout = [[sg.Frame(
     [sg.Button('Enter', key='button'), sg.Exit()]]
 
 window = sg.Window('Chess', layout, icon=path, finalize=True)  # no_titlebar=True
-# finalize=True для window.bind()
+# finalize=True для window.bind() и window[''].expand()
 window.bind("<Return>", 'button')
+window['button'].expand(expand_x=True)
 
 while True:
     event, values = window.read()
     if event == 'button':
         play(values['-INPUT-'])
-        window['button'].expand(expand_x=True)
         window['-INPUT-'].update('')
     if event == sg.WIN_CLOSED or event == 'Exit':
         break
