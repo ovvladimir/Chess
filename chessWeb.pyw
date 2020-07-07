@@ -58,8 +58,8 @@ layout = [[sg.Frame(
         text_color='white' if value and 9811 < ord(value) < 9818 else 'black')
         for index, value in np.ndenumerate(chessman)][i:i + 10] for i in range(0, 100, 10)])],
     [sg.Text(text=f'{player[0]} move, for example e2e4', size=(22, 1), key='-OUTPUT-',
-     text_color='green', font='arial 14 bold', background_color='white')],
-    [sg.Input(focus=True, size=(22, 1), font='arial 14 bold', justification='center', key='-INPUT-')],
+     text_color='green', font='arial 14', background_color='white')],
+    [sg.Input(focus=True, size=(22, 1), font='arial 14', justification='center', key='-INPUT-')],
     [sg.Button('Enter', key='button'), sg.Exit()]]
 
 window = sg.Window('Chess', layout, no_titlebar=True)
