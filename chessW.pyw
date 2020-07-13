@@ -44,18 +44,19 @@ def play(e=None):
     entry.delete(0, 'end')
     entry.focus()
     try:
-        if (dl[move[0]] == dl[move[2]] and dn[move[1]] == dn[move[3]]) or len(move) != 4:
+        if (dl[move[0]] == dl[move[2]] and dn[move[1]] == dn[move[3]]) or len(move) != 4 or \
+           (9824 > ord(chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]]) > 9817 and player[0] == "White's") or \
+           (9818 > ord(chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]]) > 9811 and player[0] == "Black's"):
             move = sp
-        chessman[1:-1, 1:-1][dn[move[3]], dl[move[2]]] = \
-            chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]]
+        chessman[1:-1, 1:-1][dn[move[3]], dl[move[2]]] = chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]]
         chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]] = sp
         player.reverse()
         message(f'{player[0]} move, for example e2e4', 'green')
-    except (IndexError, BaseException):
+    except (IndexError, TypeError, BaseException):
         message(f'Wrong move. {player[0]} move, for example e2e4', 'red')
-
-    for ind in np.ndindex(chessman.shape):
-        lbl_list[int(f'{ind[0]}{ind[1]}')]['text'] = chessman[ind]
+    else:
+        for ind in np.ndindex(chessman.shape):
+            lbl_list[int(f'{ind[0]}{ind[1]}')]['text'] = chessman[ind]
 
 
 root = Tk()
