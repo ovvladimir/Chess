@@ -51,7 +51,9 @@ def play(move):
     else:
         for index, value in np.ndenumerate(chessman):
             window[index].update(
-                value, text_color='white' if value and ord(value) < 9818 else 'black')
+                value,
+                text_color='gray' if not value or value.isalnum()
+                else 'white' if ord(value) < 9818 else 'black')
 
 
 layout = [[sg.Frame(
@@ -60,7 +62,7 @@ layout = [[sg.Frame(
         text=value, size=(2, 1), justification='center', relief='raised',
         border_width=2, pad=(1, 1), font='arial 30 bold', key=index,
         background_color=COLORS[2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) & 1],
-        text_color='white' if value and ord(value) < 9818 else 'black')
+        text_color='gray' if not value or value.isalnum() else 'white' if ord(value) < 9818 else 'black')
         for index, value in np.ndenumerate(chessman)][i:i + 10] for i in range(0, 100, 10)])],
     [sg.Text(text=f'{player[0]} move, for example e2e4', key='-OUTPUT-',
      text_color='green', font='arial 16 bold', background_color='white')],
