@@ -45,9 +45,9 @@ def play(move):
         chessman[1:-1, 1:-1][dn[move[3]], dl[move[2]]] = chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]]
         chessman[1:-1, 1:-1][dn[move[1]], dl[move[0]]] = sp
         player.reverse()
-        message(f'{player[0]} move, for example e2e4', 'green')
+        message(f'{player[0]} move', 'green')
     except (IndexError, TypeError, BaseException):
-        message(f'Wrong move. {player[0]} move, for example e2e4', 'red')
+        message(f'Wrong move. {player[0]} move.', 'red')
     else:
         for index, value in np.ndenumerate(chessman):
             window[index].update(
