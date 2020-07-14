@@ -5,9 +5,9 @@ import os
 os.system("")
 
 chessman = {
-    "pawn": "\u265F", "rook": "\u265C",
-    "kNight": "\u265E", "bishop": "\u265D",
-    "queen": "\u265B", "king": "\u265A"}
+    "pawn": "\u2659", "rook": "\u2656",
+    "kNight": "\u2658", "bishop": "\u2657",
+    "queen": "\u2655", "king": "\u2654"}
 
 letters = ' \u0041 \u0042 \u0043 \u0044 \u0045 \u0046 \u0047 \u0048 \n'
 c1, c2 = '\x1b[48;5;124m', '\x1b[48;5;172m'
