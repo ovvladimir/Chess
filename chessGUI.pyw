@@ -60,7 +60,7 @@ layout = [[sg.Frame(
     title='', border_width=20, relief='raised', background_color='gray',
     layout=[[sg.Text(
         text=value, size=(2, 1), justification='center', relief='raised',
-        border_width=2, pad=(1, 1), font='arial 30 bold', key=index,
+        border_width=2, pad=(1, 1), font='arial 28', key=index,
         background_color=COLORS[2 if value not in chessman[1:-1, 1:-1] else (index[0] + index[1]) & 1],
         text_color='gray' if not value or value.isalnum() else 'white' if ord(value) < 9818 else 'black')
         for index, value in np.ndenumerate(chessman)][i:i + 10] for i in range(0, 100, 10)])],
