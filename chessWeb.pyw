@@ -60,7 +60,7 @@ layout = [[sg.Frame(
         for index, value in np.ndenumerate(chessman)][i:i + 10] for i in range(0, 100, 10)])],
     [sg.Text(text=f'{player[0]} move, for example e2e4', size=(22, 1), key='-OUTPUT-',
      text_color='green', font='arial 14', background_color='white')],
-    [sg.Input(focus=True, size=(22, 0.8), font='arial 14', justification='center', key='-INPUT-')],
+    [sg.Input(focus=True, size=(22, 0.8), font='arial 16', justification='center', key='-INPUT-')],
     [sg.Button('Enter', key='button'), sg.Exit()]]
 
 window = sg.Window('Chess', layout, no_titlebar=True)
